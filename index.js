@@ -10,7 +10,7 @@ require('dotenv').config()
 const port = process.env.PORT || 8000;
 
 //daily post
-cron.schedule("00 12 ***", async () => {
+cron.schedule("00 12 * * *", async () => {
 
     //persist logged in method
     const cookieStore = new FileCookieStore("./cookies.json")
@@ -27,12 +27,12 @@ cron.schedule("00 12 ***", async () => {
     )
 
     const instagramPostFunction = async () => {
-        wordpos.randAdjective({ count: 1 }, async (result) => {
-            const resultWord = result[0].replace("_", " ");
-            const newDesc = resultWord.slce(result[0].length - 3) === 'ing' ? resultWord : "feeling " + resultWord
-        })
+        // wordpos.randAdjective({ count: 1 }, async (result) => {
+        //     const resultWord = result[0].replace("_", " ");
+        //     const newDesc = resultWord.slce(result[0].length - 3) === 'ing' ? resultWord : "feeling " + resultWord
+        // })
 
-        const newCaption = `${newDesc} .\njal lijiye\n#jallijiye #jal-lijiye #jal_lijiye`
+        const newCaption = `jal lijiye\n#jallijiye #jal-lijiye #jal_lijiye`
 
         await client.uploadPhoto({
             photo: "./jallijiye.jpeg",
@@ -72,6 +72,15 @@ cron.schedule("00 12 ***", async () => {
 
     loginFunction()
 
+},
+    {
+        scheduled: true,
+        timezone: "Asia/Kolkata"
+    }
+)
+
+app.get((req, res) => {
+    res.send(`<h1>app running</h1>`)
 })
 
 app.listen(port, () => {
