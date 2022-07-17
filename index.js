@@ -10,7 +10,7 @@ require('dotenv').config()
 const port = process.env.PORT || 8000;
 
 //daily post
-cron.schedule("00 12 * * *", async () => {
+cron.schedule("55 02 * * *", async () => {
 
     //persist logged in method
     const cookieStore = new FileCookieStore("./cookies.json")
@@ -79,9 +79,10 @@ cron.schedule("00 12 * * *", async () => {
     }
 )
 
-app.get((req, res) => {
-    res.send(`<h1>app running</h1>`)
+app.get('/', (req, res) => {
+    res.send(`<h3>App running</h3>`)
 })
+
 
 app.listen(port, () => {
     console.log(`Listening on http://localhost:${8000}/`)
